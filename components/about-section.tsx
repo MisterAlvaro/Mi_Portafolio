@@ -18,8 +18,8 @@ export default function AboutSection() {
 
           <div className="flex flex-col md:flex-row items-center gap-8">
             <div className="md:w-1/3">
-              <div className="relative w-40 h-40 md:w-48 md:h-48 mx-auto rounded-full overflow-hidden border-4 border-lila-soft shadow-lg">
-                <Image src="/images/profile.webp" alt="Foto de perfil" fill className="object-cover" />
+              <div className="relative w-50 h-50 md:w-48 md:h-48 mx-auto rounded-full overflow-hidden border-4 border-lila-soft shadow-lg">
+                <Image src="/images/personal.jpg" alt="Foto de perfil" fill className="object-cover" />
               </div>
             </div>
 

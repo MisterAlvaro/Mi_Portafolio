@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useRef } from "react"
 import { motion } from "framer-motion"
 import { Send } from "lucide-react"
 
@@ -10,18 +10,44 @@ export default function ContactSection() {
     email: "",
     message: "",
   })
+  const [loading, setLoading] = useState(false)
+  const [success, setSuccess] = useState(false)
+  const [error, setError] = useState(false)
+  const formRef = useRef<HTMLFormElement>(null)
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
     setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    // Aquí iría la lógica para enviar el formulario
-    console.log(formData)
-    alert("¡Gracias por tu mensaje! Te responderé pronto.")
-    setFormData({ name: "", email: "", message: "" })
+    setLoading(true)
+    setSuccess(false)
+    setError(false)
+    
+    const formData = new FormData(e.currentTarget)
+    
+    try {
+      // Envía los datos utilizando la API Fetch
+      const response = await fetch("https://formsubmit.co/alvaro.ismael.urgelles.revilla@gmail.com", {
+        method: "POST",
+        body: formData
+      })
+      
+      if (response.ok) {
+        setSuccess(true)
+        formRef.current?.reset()
+        setFormData({ name: "", email: "", message: "" })
+      } else {
+        setError(true)
+      }
+    } catch (error) {
+      console.error("Error sending form:", error)
+      setError(true)
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -36,7 +62,18 @@ export default function ContactSection() {
         >
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold mb-8 text-white-pink text-center">Contacto</h2>
 
-          <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
+          <form 
+            ref={formRef}
+            onSubmit={handleSubmit} 
+            className="space-y-4 md:space-y-6"
+            action="https://formsubmit.co/alvaro.ismael.urgelles.revilla@gmail.com"
+            method="POST"
+          >
+            {/* Hidden input for FormSubmit.co */}
+            <input type="hidden" name="_next" value="https://your-portfolio-url.com/thanks" />
+            <input type="hidden" name="_subject" value="Nuevo mensaje de contacto desde Portfolio" />
+            <input type="hidden" name="_captcha" value="false" />
+            
             <div>
               <label htmlFor="name" className="block text-lavender-pastel mb-2 text-sm md:text-base">
                 Nombre
@@ -86,11 +123,26 @@ export default function ContactSection() {
               type="submit"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="w-full bg-lila-soft hover:bg-lavender-dark text-white-pink py-3 px-6 rounded-md flex items-center justify-center gap-2 transition-colors text-sm md:text-base"
+              className={`w-full py-3 px-6 rounded-md flex items-center justify-center gap-2 transition-colors text-sm md:text-base ${
+                loading ? 'bg-lavender-dark cursor-wait' : 'bg-lila-soft hover:bg-lavender-dark'
+              } text-white-pink`}
+              disabled={loading}
             >
-              Enviar mensaje
+              {loading ? 'Enviando...' : 'Enviar mensaje'}
               <Send size={18} />
             </motion.button>
+            
+            {success && (
+              <div className="p-3 bg-green-100 border border-green-300 text-green-800 rounded-md mt-2">
+                ¡Gracias por tu mensaje! Te responderé pronto.
+              </div>
+            )}
+            
+            {error && (
+              <div className="p-3 bg-red-100 border border-red-300 text-red-800 rounded-md mt-2">
+                Hubo un problema al enviar tu mensaje. Por favor, inténtalo nuevamente.
+              </div>
+            )}
           </form>
         </motion.div>
       </div>
