@@ -5,7 +5,7 @@ import Image from "next/image"
 
 export default function AboutSection() {
   return (
-    <section id="about" className="py-16 md:py-20 lg:py-24 bg-lavender-dark">
+    <section id="about" className="py-10 md:py-20 lg:py-24 bg-lavender-dark">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -16,14 +16,14 @@ export default function AboutSection() {
         >
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold mb-8 text-white-pink text-center">Sobre Mí</h2>
 
-          <div className="flex flex-col md:flex-row items-center gap-8">
-            <div className="md:w-1/3">
-              <div className="relative w-50 h-50 md:w-48 md:h-48 mx-auto rounded-full overflow-hidden border-4 border-lila-soft shadow-lg">
+          <div className="flex flex-col md:flex-row items-center gap-12 md:gap-16 lg:gap-20 justify-between">
+            <div className="md:w-1/3 md:px-4">
+              <div className="relative w-70 h-70 md:w-82 md:h-82 lg:w-80 lg:h-80 mx-auto rounded-full overflow-hidden border-4 border-lila-soft shadow-lg">
                 <Image src="/images/personal.jpg" alt="Foto de perfil" fill className="object-cover" />
               </div>
             </div>
 
-            <div className="md:w-2/3">
+            <div className="md:w-2/3 md:pl-8">
               <p className="text-lavender-pastel mb-4 text-sm md:text-base">
                 Soy un desarrollador Full Stack apasionado por crear soluciones web completas y escalables. Me destaco en el desarrollo tanto Frontend como Backend, con experiencia en múltiples tecnologías y frameworks modernos.
               </p>
