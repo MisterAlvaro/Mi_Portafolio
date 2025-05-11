@@ -19,7 +19,7 @@ export default function AboutSection() {
           <div className="flex flex-col md:flex-row items-center gap-12 md:gap-16 lg:gap-20 justify-between">
             <div className="md:w-1/3 md:px-4">
               <div className="relative w-70 h-70 md:w-82 md:h-82 lg:w-80 lg:h-80 mx-auto rounded-full overflow-hidden border-4 border-lila-soft shadow-lg">
-                <Image src="/images/personal.jpg" alt="Foto de perfil" fill className="object-cover" />
+                <Image src="/images/personal.webp" alt="Foto de perfil" fill className="object-cover" />
               </div>
             </div>
 

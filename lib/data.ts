@@ -22,7 +22,7 @@ export const projects = [
     title: "EMPET",
     slug: "empet-landing",
     description: "Sitio web institucional para EMPET, sucursal de CUPET, con información de servicios y ubicaciones.",
-    image: "/images/logo_cupet.png",
+    image: "/images/logo_cupet.webp",
     technologies: ["Next.js", "Tailwind CSS", "React"],
     link: "https://github.com/MisterAlvaro/Empet_LandingPage",
   },
